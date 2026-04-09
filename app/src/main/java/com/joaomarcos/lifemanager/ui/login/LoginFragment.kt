@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.joaomarcos.lifemanager.databinding.FragmentLoginBinding
 import com.joaomarcos.lifemanager.repository.AuthRepository
+import com.joaomarcos.lifemanager.utils.navigation.Navigator
 import com.joaomarcos.lifemanager.utils.validation.Validator
 
 class LoginFragment: Fragment() {
@@ -17,9 +19,9 @@ class LoginFragment: Fragment() {
     private val authRepository: AuthRepository = AuthRepository()
 
     private var _bindind: FragmentLoginBinding? = null
-
     private val binding get() = _bindind!!
 
+    //fragments overrides
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +33,7 @@ class LoginFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        listerners()
+        declairListeners()
     }
 
     override fun onDestroy() {
@@ -39,7 +41,8 @@ class LoginFragment: Fragment() {
         _bindind = null
     }
 
-    fun listerners() {
+    //other functions
+    private fun declairListeners() {
         binding.btnLogin.setOnClickListener {
             val email: String = binding.inputEmail.text.toString()
             val emailVal = Validator.validateEmail(email)
@@ -52,12 +55,16 @@ class LoginFragment: Fragment() {
                 authResultTask
                     .addOnSuccessListener {
                         Log.d("Usuario logado", "uid: " + authResultTask.getResult().user?.uid.toString())
+                        Navigator.navigateToHome(this)
                     }
                     .addOnFailureListener {
                         Log.e("Usuario falhou ao logar", "Error: " + authResultTask.exception.toString())
+                        Toast.makeText(context, "Erro ao logar, tente novamente com outros dados", Toast.LENGTH_LONG).show()
                     }
             }
         }
+
+        binding.anchorRegister.setOnClickListener { Navigator.naivateToRegistry(this) }
     }
 
     fun validateInputs(email: String, emailVal: Boolean, password: String, passVal: Boolean): Boolean {

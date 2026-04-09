@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/logo_life_manager_description"
-        android:src="@drawable/logo_lifemanager"
+        android:src="@drawable/logo_lifemanager_272"
         android:layout_marginTop="25dp"/>
 
     <LinearLayout

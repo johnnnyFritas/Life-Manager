@@ -5,8 +5,10 @@
     <string name="logo_life_manager_description">Logo do aplicativo Life Manager, é uma lista de tarefas, logo ao lado dela possui um relógio e uma folha em cima, indicando que o aplicativo oferece administração de tempo com leveza (indicado pela folha), as cores são leves alternando entre verde, amarelo e preto, todas brilhando com um tom animado.</string>
     <string name="current_tasks">Tarefas Atuais</string>
     <string name="points">Pontuação</string>
+    <string name="username">Username</string>
     <string name="email">E-mail</string>
     <string name="password">Senha</string>
+    <string name="password_confirm">Confirmar senha</string>
     <string name="login">Entrar</string>
     <string name="anchor_register">Não possui registro?\n<u>Registre-se clicando aqui</u></string>
 </resources>
