@@ -11,16 +11,20 @@ import com.joaomarcos.lifemanager.utils.navigation.Navigator
 
 class HomeFragment : Fragment() {
 
-    private val auth = AuthRepository()
+    //declare auth object
+    private val auth: AuthRepository = AuthRepository()
 
+    //initialize binding to get views and widgets
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    //fragment overrides
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -28,11 +32,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //get current user, even if it's not logged yet (null)
         val user = auth.getCurrentUser()
-        if(user == null)
+        if(user == null) {
+            //use Navigator (object class) to navigate to other fragment
             Navigator.navigateToLogin(this)
+            return
+        }
 
-        declairListeners()
+        //call function to declare listeners
+        declareListeners()
     }
 
     override fun onDestroy() {
@@ -40,9 +49,17 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private fun declairListeners() {
+    //other functions
+
+    //declare listeners
+    private fun declareListeners() {
+
+        //user clicks on imgMenu logo
         binding.imgMenu.setOnClickListener {
+
             auth.logout()
+
+            //use Navigator (object class) to navigate to other fragment
             Navigator.navigateToLogin(this)
         }
     }

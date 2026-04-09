@@ -20,79 +20,71 @@
         android:id="@+id/layoutLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
-        app:layout_constraintBottom_toTopOf="@+id/anchorRegister"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="35dp"
         android:layout_marginBottom="10dp"
-        android:orientation="vertical"
         android:background="@drawable/shape_login"
-        android:padding="25dp">
+        android:orientation="vertical"
+        android:padding="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/anchorRegister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
 
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textColorHint="@color/light_gray_1"
-            android:hint="@string/email"
-            android:fontFamily="@font/poppins_regular"
-            android:inputType="textEmailAddress"
             android:autofillHints="emailAddress"
             android:background="@drawable/shape_input"
-            android:textAlignment="textStart"/>
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textColorHint="@color/light_gray_1"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/warningEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:fontFamily="@font/poppins_medium"
             android:textColor="@color/white"
-            android:fontFamily="@font/poppins_medium"/>
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/inputPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="5dp"
             android:layout_marginTop="15dp"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textColorHint="@color/light_gray_1"
-            android:hint="@string/password"
-            android:fontFamily="@font/poppins_regular"
-            android:inputType="textPassword"
             android:autofillHints="password"
             android:background="@drawable/shape_input"
-            android:textAlignment="textStart"/>
-
-        <TextView
-            android:id="@+id/warningPass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:textAlignment="textStart"
             android:textColor="@color/white"
-            android:fontFamily="@font/poppins_medium"/>
+            android:textColorHint="@color/light_gray_1"
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textSize="25sp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/btn_login"
+            android:fontFamily="@font/poppins_bold"
+            android:paddingHorizontal="40dp"
+            android:text="@string/login"
             android:textAlignment="center"
             android:textColor="@color/black_2"
-            android:text="@string/login"
-            android:fontFamily="@font/poppins_bold"
-            app:backgroundTint="@null"
-            android:background="@drawable/btn_login"
-            android:paddingHorizontal="40dp"
-            android:layout_marginTop="20dp"/>
+            android:textSize="25sp"
+            app:backgroundTint="@null" />
     </LinearLayout>
 
     <TextView

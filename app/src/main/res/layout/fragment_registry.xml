@@ -22,10 +22,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="35dp"
-        android:layout_marginVertical="10dp"
         android:background="@drawable/shape_login"
         android:padding="25dp"
         android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/inputName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:autofillHints="name"
+            android:background="@drawable/shape_input"
+            android:paddingHorizontal="15dp"
+            android:hint="@string/name"
+            android:textColorHint="@color/light_gray_1"
+            android:textSize="25sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular"
+            android:paddingVertical="5dp"/>
+
+        <TextView
+            android:id="@+id/warningName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/inputUsername"
@@ -40,7 +62,16 @@
             android:textSize="25sp"
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_regular"
-            android:paddingVertical="5dp"/>
+            android:paddingVertical="5dp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/warningUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/inputEmail"
@@ -56,7 +87,15 @@
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_regular"
             android:paddingVertical="5dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/warningEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/inputPass"
@@ -72,7 +111,15 @@
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_regular"
             android:paddingVertical="5dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/warningPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_medium"/>
 
         <EditText
             android:id="@+id/inputPassConfirm"
@@ -88,16 +135,26 @@
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_regular"
             android:paddingVertical="5dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/warningPassConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_medium"/>
 
         <Button
             android:id="@+id/btnRegistry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_login"
-            android:text=""/>
+            android:text="@string/send"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="22sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
