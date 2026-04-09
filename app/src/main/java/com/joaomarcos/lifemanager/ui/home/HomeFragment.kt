@@ -24,8 +24,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val logged = auth.getCurrentUser()
-        if(!logged)
+        val user = auth.getCurrentUser()
+        if(user == null)
             Navigator.login(this)
     }
 }

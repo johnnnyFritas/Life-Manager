@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "898562676331",
+    "project_id": "lifemanager-2504",
+    "storage_bucket": "lifemanager-2504.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898562676331:android:6c342fcf40200206b6432e",
+        "android_client_info": {
+          "package_name": "com.joaomarcos.lifemanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898562676331-3ng1p9jn3pa0a0b4scgra6fim3sl9kog.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7b9gPrrStX0PutyV5hqJ9wbIdOCJWADg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898562676331-3ng1p9jn3pa0a0b4scgra6fim3sl9kog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

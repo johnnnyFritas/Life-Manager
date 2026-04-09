@@ -4,24 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
-    
+
     <ImageView
+        android:id="@+id/imgMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/icon_menu_80_description"
         android:src="@drawable/icon_menu_80"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"/>
 
     <ImageView
+        android:id="@+id/imgAllTasks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/icon_all_task_80_description"
         android:src="@drawable/icon_all_task_80"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"/>
 
     <LinearLayout
+        android:id="@+id/layoutCurrentTasks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -39,15 +44,6 @@
             android:textSize="28sp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/white"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_current_tasks"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -57,6 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutCurrentTasks"
         android:layout_marginHorizontal="75dp">
 
         <TextView
@@ -67,14 +64,5 @@
             android:textSize="28sp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/white"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/shape_points">
-
-
-        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

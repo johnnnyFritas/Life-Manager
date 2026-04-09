@@ -2,8 +2,12 @@
 <resources>
     <color name="transparent">#00000000</color>
     <color name="black">#161616</color>
+    <color name="black_1">#212121</color>
+    <color name="black_2">#0A1713</color>
     <color name="dark_gray">#303030</color>
     <color name="light_gray">#625F5F</color>
+    <color name="light_gray_1">#717171</color>
+    <color name="light_gray_2">#303030</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_green">#285A48</color>
     <color name="medium_green">#408A71</color>
