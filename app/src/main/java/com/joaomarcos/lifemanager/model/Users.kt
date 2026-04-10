@@ -5,5 +5,5 @@ data class Users (
      val name: String,
      val username: String,
      val email: String,
-     val tasks: Map<String, Any>
+     val tasks: Map<String, Any>?
 )

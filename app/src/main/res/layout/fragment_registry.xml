@@ -155,6 +155,7 @@
             android:background="@drawable/btn_login"
             android:text="@string/send"
             android:fontFamily="@font/poppins_bold"
-            android:textSize="22sp"/>
+            android:textSize="22sp"
+            android:textColor="@color/white"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
