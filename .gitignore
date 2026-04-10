@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Configurações do Android Studio e logs
+.idea/
+.kotlin/
+*.log
+build/
+captures/
