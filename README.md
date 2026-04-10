@@ -7,7 +7,7 @@ Life-Manager is an Android application designed to help users optimize their dai
 - **Language:** [Kotlin](https://kotlinlang.org/)
 - **UI Framework:** Android Fragments & XML with **View Binding**
 - **Architecture:** MVVM / Repository Pattern
-- **Backend Integration:** Firebase Authentication & Firestore (Ongoing)
+- **Backend Integration:** Firebase Authentication and springboot with Java
 - **Local Tools:** Git for version control
 
 ## ✨ Features (In Development)
