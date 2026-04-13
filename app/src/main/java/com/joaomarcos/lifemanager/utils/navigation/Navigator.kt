@@ -1,32 +1,23 @@
 package com.joaomarcos.lifemanager.utils.navigation
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.joaomarcos.lifemanager.R
-import com.joaomarcos.lifemanager.ui.home.HomeFragment
-import com.joaomarcos.lifemanager.ui.login.LoginFragment
-import com.joaomarcos.lifemanager.ui.login.RegistryFragment
 
 object Navigator {
-    fun navigateToLogin(fragment: Fragment) {
-        fragment.requireActivity().supportFragmentManager.beginTransaction()
+    fun navigateWithoutStackBack(currentFragmentNavigator: Fragment, nextFragmentNavigator: Fragment, args: Bundle?) {
+        nextFragmentNavigator.arguments = args
+        currentFragmentNavigator.requireActivity().supportFragmentManager.beginTransaction()
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-            .replace(R.id.fragment_container, LoginFragment(), null)
-            .addToBackStack(null)
+            .replace(R.id.fragment_container, nextFragmentNavigator, null)
             .commit()
     }
 
-    fun navigateToHome(fragment: Fragment) {
-        fragment.requireActivity().supportFragmentManager.beginTransaction()
+    fun navigateWithStackBack(currentFragmentNavigator: Fragment, nextFragmentNavigator: Fragment, args: Bundle?) {
+        nextFragmentNavigator.arguments = args
+        currentFragmentNavigator.requireActivity().supportFragmentManager.beginTransaction()
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-            .replace(R.id.fragment_container, HomeFragment(), null)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    fun naivateToRegistry(fragment: Fragment) {
-        fragment.requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-            .replace(R.id.fragment_container, RegistryFragment(), null)
+            .replace(R.id.fragment_container, nextFragmentNavigator, null)
             .addToBackStack(null)
             .commit()
     }

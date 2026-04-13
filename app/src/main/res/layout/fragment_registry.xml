@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/light_gray"
-            android:textSize="30sp"
+            android:textSize="18sp"
             android:fontFamily="@font/poppins_bold"/>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,7 @@ import com.joaomarcos.lifemanager.data.RetrofitClient
 import com.joaomarcos.lifemanager.databinding.FragmentRegistryBinding
 import com.joaomarcos.lifemanager.model.Users
 import com.joaomarcos.lifemanager.repository.AuthRepository
+import com.joaomarcos.lifemanager.ui.home.HomeFragment
 import com.joaomarcos.lifemanager.utils.navigation.Navigator
 import com.joaomarcos.lifemanager.utils.validation.Validator
 import kotlinx.coroutines.delay
@@ -109,51 +110,36 @@ class RegistryFragment: Fragment() {
             //show loading text
             binding.txtLoading.text = getString(R.string.loading_message_sending_info)
 
-            //first the user needs to be authenticated, that will generate uid. declare a Task<AuthResult> variable to save the register response
-            val authResultTask: Task<AuthResult> = authRepository.register(email!!, password!!)
+            val users = Users("", name!!, username!!, email!!, null)
 
-            //verify register response
-            authResultTask
-                //success
-                .addOnSuccessListener {
-                    //alert user its authenticated
-                    binding.txtLoading.text = getString(R.string.loading_message_authenticated_registring)
+            //save authentication response
+            val authResultTask: Task<AuthResult> = authRepository.register(email, password!!)
+            //verify authentication response.
+            authenticationResponse(authResultTask, users)
 
-                    //get user uid from authentication
-                    val uid: String = authResultTask.result?.user?.uid.toString()
-
-                    //create users: Users
-                    val users = Users(uid, name!!, username!!, email, null)
-
-                    lifecycleScope.launch {
-                        try {
-                            //insert user
-                            val response = RetrofitClient.apiService.insert(users)
-
-                            //verify response
-                            if (response.isSuccessful) {
-                                //alert success
-                                binding.txtLoading.text = getString(R.string.loading_message_success_redirecting)
-                                //delay to user read alert
-                                delay(5000)
-
-                                //success
-                                Log.d("registro", "Cliente registrado: " + response.body().toString())
-
-                                //Uses navigator to navigate to Home page
-                                Navigator.navigateToHome(this@RegistryFragment)
-
-                            } else { responseFailure(response) }
-                        } catch (e: Exception) { exception(e) }
-
-                    }
-
-                }
-
-                //failure
-                .addOnFailureListener { authenticationFailure(authResultTask) }
-
+            //Now the rest of the registry it's on authenticationResponse fun and other functions/methods.
         }
+    }
+
+    private fun authenticationResponse(authResultTask: Task<AuthResult>, users: Users) {
+        authResultTask
+            //success
+            .addOnSuccessListener { authenticationSuccess(authResultTask, users) }
+            //failure
+            .addOnFailureListener { authenticationFailure(authResultTask) }
+    }
+
+    private fun authenticationSuccess(authResultTask: Task<AuthResult>, users: Users) {
+        //alert user its authenticated
+        binding.txtLoading.text = getString(R.string.loading_message_authenticated_registring)
+
+        //get user uid from authentication
+        val uid: String = authResultTask.result?.user?.uid.toString()
+
+        //update user uid
+        users.uid = uid
+
+        insert(users)
     }
 
     private fun authenticationFailure(authResultTask: Task<AuthResult>) {
@@ -162,15 +148,52 @@ class RegistryFragment: Fragment() {
 
         //Log error on logcat
         Log.e("registro", "Erro: " + authResultTask.exception.toString())
+
+        binding.frameLoading.visibility = View.GONE
+        binding.btnRegistry.isEnabled = true
+    }
+
+    private fun insert(users: Users) {
+        lifecycleScope.launch {
+            try {
+                //insert user
+                val response = RetrofitClient.apiService.insert(users)
+
+                //verify response
+                if (response.isSuccessful) {
+                    //alert success
+                    binding.txtLoading.text = getString(R.string.loading_message_success_redirecting)
+                    //delay to user read alert
+                    delay(2000)
+
+                    //success
+                    Log.d("registro", "Cliente registrado: " + response.body().toString())
+
+                    //add args to send to first task registry page
+                    val args = Bundle()
+                    args.putString("username", users.username)
+
+                    //Uses navigator to navigate to first task registry page
+                    Navigator.navigateWithoutStackBack(this@RegistryFragment, FirstTaskRegistryFragment(), args)
+                } else { responseFailure(response) }
+            } catch (e: Exception) { exception(e) }
+
+        }
     }
 
     private fun exception(e: Exception) {
         //show error message
         Log.e("registro", "Erro: " + e.message.toString())
+
+        binding.frameLoading.visibility = View.GONE
+        binding.btnRegistry.isEnabled = true
     }
 
     private fun responseFailure(response: Response<Users>) {
         //failure
         Log.e("registro", "Erro: " + response.code())
+
+        binding.frameLoading.visibility = View.GONE
+        binding.btnRegistry.isEnabled = true
     }
 }

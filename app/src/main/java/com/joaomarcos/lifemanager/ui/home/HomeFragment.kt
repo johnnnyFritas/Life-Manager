@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.joaomarcos.lifemanager.databinding.FragmentHomeBinding
 import com.joaomarcos.lifemanager.repository.AuthRepository
+import com.joaomarcos.lifemanager.ui.login.LoginFragment
 import com.joaomarcos.lifemanager.utils.navigation.Navigator
 
 class HomeFragment : Fragment() {
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
         val user = auth.getCurrentUser()
         if(user == null) {
             //use Navigator (object class) to navigate to other fragment
-            Navigator.navigateToLogin(this)
+            Navigator.navigateWithoutStackBack(this@HomeFragment, LoginFragment(), null)
             return
         }
 
@@ -54,13 +55,5 @@ class HomeFragment : Fragment() {
     //declare listeners
     private fun declareListeners() {
 
-        //user clicks on imgMenu logo
-        binding.imgMenu.setOnClickListener {
-
-            auth.logout()
-
-            //use Navigator (object class) to navigate to other fragment
-            Navigator.navigateToLogin(this)
-        }
     }
 }

@@ -21,4 +21,12 @@
     <string name="loading_message_sending_info">Enviando suas informações…</string>
     <string name="loading_message_authenticated_registring">Autenticado!\nAcessando banco de dados…</string>
     <string name="loading_message_success_redirecting">Sucesso!\nRedirecionando…</string>
+    <string name="first_task">Vamos criar sua primeira tarefa</string>
+    <string name="task_name">Primeiro, dê um nome a ela</string>
+    <string name="task_name_example">Ex: Estudar matemática</string>
+    <string name="task_priority">De 1 a 5, quanto essa tarefa é importante?</string>
+    <string name="task_priority_example">Ex: 5</string>
+    <string name="task_week_days">Quais dias da semana a tarefa ocorre</string>
+    <string name="task_week_days_example">Clique aqui para escolher</string>
+    <string name="create_task">Criar</string>
 </resources>
