@@ -72,7 +72,8 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:fontFamily="@font/poppins_regular"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="32dp"
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/inputTaskPriority"
@@ -84,7 +85,8 @@
             android:fontFamily="@font/poppins_medium"
             android:inputType="text"
             android:autofillHints="name"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -95,7 +97,8 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:fontFamily="@font/poppins_regular"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="32dp"
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/inputTaskWeekDays"
@@ -106,7 +109,8 @@
             android:textColorHint="@color/light_gray_1"
             android:fontFamily="@font/poppins_medium"
             android:focusable="false"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/btnCriar"
@@ -119,6 +123,7 @@
             android:textColor="@color/white"
             android:textSize="25sp"
             android:fontFamily="@font/poppins_bold"
-            android:text="@string/create_task"/>
+            android:text="@string/create_task"
+            android:visibility="gone"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
