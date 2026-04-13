@@ -43,7 +43,7 @@ android {
 dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
-    implementation("com.google.firebase:firebase-analytics")
+    implementation(libs.firebase.analytics)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -55,5 +55,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 }

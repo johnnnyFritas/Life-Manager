@@ -7,13 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import com.joaomarcos.lifemanager.R
+import com.joaomarcos.lifemanager.data.RetrofitClient
 import com.joaomarcos.lifemanager.databinding.FragmentRegistryBinding
 import com.joaomarcos.lifemanager.model.Users
 import com.joaomarcos.lifemanager.repository.AuthRepository
 import com.joaomarcos.lifemanager.utils.navigation.Navigator
 import com.joaomarcos.lifemanager.utils.validation.Validator
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class RegistryFragment: Fragment() {
 
@@ -51,68 +57,120 @@ class RegistryFragment: Fragment() {
 
     //declare listeners
     private fun declareListeners() {
-
         //user clicks on 'Enviar'
-        binding.btnRegistry.setOnClickListener {
+        binding.btnRegistry.setOnClickListener { btnRegistryClicked() }
+    }
 
-            val name: String? = binding.inputName.text?.toString()
+    private fun btnRegistryClicked() {
 
-            //validate name
-            val nameVal: Boolean = Validator.validateName(name)
-            binding.warningName.text = if (nameVal) "" else "Digite um nome válido"
+        //get name
+        val name: String? = binding.inputName.text?.toString()
 
-            val username: String? = binding.inputUsername.text?.toString()
+        //validate name
+        val nameVal: Boolean = Validator.validateName(name)
+        binding.warningName.text = if (nameVal) "" else getString(R.string.invalid_name)
 
-            //validate username
-            val usernameVal: Boolean = Validator.validateUsername(username)
-            binding.warningUsername.text = if (usernameVal) "" else "Digite um username válido"
+        //get username
+        val username: String? = binding.inputUsername.text?.toString()
 
-            val email: String? = binding.inputEmail.text?.toString()
+        //validate username
+        val usernameVal: Boolean = Validator.validateUsername(username)
+        binding.warningUsername.text = if (usernameVal) "" else getString(R.string.invalid_username)
 
-            //validate e-mail
-            val emailVal: Boolean = Validator.validateEmail(email)
-            binding.warningEmail.text = if (emailVal) "" else "Digite um e-mail válido"
+        //get e-mail
+        val email: String? = binding.inputEmail.text?.toString()
 
-            val password: String? = binding.inputPass.text?.toString()
-            val passwordConfirm: String? = binding.inputPassConfirm.text?.toString()
+        //validate e-mail
+        val emailVal: Boolean = Validator.validateEmail(email)
+        binding.warningEmail.text = if (emailVal) "" else getString(R.string.invalid_email)
 
-            //validate password
-            val passVal: Boolean = Validator.validatePassword(password)
-            binding.warningPass.text = if (passVal) "" else "Digite uma senha válida"
-            val passConfirmVal: Boolean = Validator.validatePasswordConfirm(password, passwordConfirm)
-            binding.warningPass.text = if (passConfirmVal) "" else "As senhas devem ser iguais"
-            binding.warningPassConfirm.text = if (passConfirmVal) "" else "As senhas devem ser iguais"
+        //get password and password confirm
+        val password: String? = binding.inputPass.text?.toString()
+        val passwordConfirm: String? = binding.inputPassConfirm.text?.toString()
 
-            //verify if user can register, if all validations are true, then can, if they aren't, then can't
-            if (nameVal && usernameVal && emailVal && passVal && passConfirmVal) {
-                //first the user needs to be authenticated, that will generate uid. declare a Task<AuthResult> variable to save the register response
-                val authResultTask: Task<AuthResult> = authRepository.register(email!!, password!!)
-
-                //verify register response
-                authResultTask
-                    //success
-                    .addOnSuccessListener {
-
-                        //get users uid from authentication
-                        val uid: String = authResultTask.result?.user?.uid.toString()
-
-                        //create users: Users
-                        val users: Users = Users(uid, name!!, username!!, email, null)
-                        //API requests to register user
-                        //...
-
-                        Navigator.navigateToHome(this)
-                    }
-                    //failure
-                    .addOnFailureListener {
-
-                        //show error to user
-                        Toast.makeText(context, "Erro ao registrar, tente novamente mais tarde...", Toast.LENGTH_LONG).show()
-
-                        //Log error on logcat
-                        Log.e("registro", "Erro: " + authResultTask.exception.toString())
-                    }
-            }
+        //validate password
+        val passVal: Boolean = Validator.validatePassword(password)
+        val passConfirmVal: Boolean = Validator.validatePasswordConfirm(password, passwordConfirm)
+        if (passVal) {
+            binding.warningPass.text = if (passConfirmVal) "" else getString(R.string.invalid_password_confirm)
+            binding.warningPassConfirm.text = if (passConfirmVal) "" else getString(R.string.invalid_password_confirm)
+        }else {
+            binding.warningPass.text = getString(R.string.invalid_password)
         }
+
+        //verify if user can register, if all validations are true, then can, if they aren't, then can't
+        if (nameVal && usernameVal && emailVal && passVal && passConfirmVal) {
+
+            //block the button to avoid more requisitions
+            binding.btnRegistry.isEnabled = false
+
+            //show frame loading
+            binding.frameLoading.visibility = View.VISIBLE
+            //show loading text
+            binding.txtLoading.text = getString(R.string.loading_message_sending_info)
+
+            //first the user needs to be authenticated, that will generate uid. declare a Task<AuthResult> variable to save the register response
+            val authResultTask: Task<AuthResult> = authRepository.register(email!!, password!!)
+
+            //verify register response
+            authResultTask
+                //success
+                .addOnSuccessListener {
+                    //alert user its authenticated
+                    binding.txtLoading.text = getString(R.string.loading_message_authenticated_registring)
+
+                    //get user uid from authentication
+                    val uid: String = authResultTask.result?.user?.uid.toString()
+
+                    //create users: Users
+                    val users = Users(uid, name!!, username!!, email, null)
+
+                    lifecycleScope.launch {
+                        try {
+                            //insert user
+                            val response = RetrofitClient.apiService.insert(users)
+
+                            //verify response
+                            if (response.isSuccessful) {
+                                //alert success
+                                binding.txtLoading.text = getString(R.string.loading_message_success_redirecting)
+                                //delay to user read alert
+                                delay(5000)
+
+                                //success
+                                Log.d("registro", "Cliente registrado: " + response.body().toString())
+
+                                //Uses navigator to navigate to Home page
+                                Navigator.navigateToHome(this@RegistryFragment)
+
+                            } else { responseFailure(response) }
+                        } catch (e: Exception) { exception(e) }
+
+                    }
+
+                }
+
+                //failure
+                .addOnFailureListener { authenticationFailure(authResultTask) }
+
+        }
+    }
+
+    private fun authenticationFailure(authResultTask: Task<AuthResult>) {
+        //show error to user
+        Toast.makeText(requireContext(), "Erro ao registrar, tente novamente mais tarde...", Toast.LENGTH_LONG).show()
+
+        //Log error on logcat
+        Log.e("registro", "Erro: " + authResultTask.exception.toString())
+    }
+
+    private fun exception(e: Exception) {
+        //show error message
+        Log.e("registro", "Erro: " + e.message.toString())
+    }
+
+    private fun responseFailure(response: Response<Users>) {
+        //failure
+        Log.e("registro", "Erro: " + response.code())
     }
 }
